@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Email Assistant</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app">
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            ✉️ <span>EmailAI</span>
+        </div>
+
+        <nav>
+            <button class="nav-item active">
+                📥 Inbox
+            </button>
+
+            <button class="nav-item">
+                ⭐ Important
+            </button>
+
+            <button class="nav-item">
+                ✅ Tasks
+            </button>
+
+            <button class="nav-item">
+                📅 Deadlines
+            </button>
+
+            <button class="nav-item">
+                🛡️ Security
+            </button>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div>🤖 AI Assistant</div>
+            <small>Smart email management</small>
+        </div>
+
+    </aside>
+
+
+    <main class="main">
+
+        <header class="topbar">
+
+            <div>
+                <h1>AI Email Assistant</h1>
+                <p>Understand your inbox faster.</p>
+            </div>
+
+            <div class="status">
+                <span class="status-dot"></span>
+                AI Online
+            </div>
+
+        </header>
+
+
+        <section class="dashboard">
+
+            <div class="stat-card">
+                <span>📧</span>
+                <div>
+                    <small>Emails analyzed</small>
+                    <strong id="emailCount">0</strong>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <span>🚨</span>
+                <div>
+                    <small>High priority</small>
+                    <strong id="highCount">0</strong>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <span>✅</span>
+                <div>
+                    <small>Tasks found</small>
+                    <strong id="taskCount">0</strong>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <span>🛡️</span>
+                <div>
+                    <small>Security alerts</small>
+                    <strong id="securityCount">0</strong>
+                </div>
+            </div>
+
+        </section>
+
+
+        <section class="workspace">
+
+            <div class="email-panel">
+
+                <div class="section-title">
+                    <h2>Analyze Email</h2>
+                    <span>AI powered</span>
+                </div>
+
+
+                <label>Sender</label>
+
+                <input
+                    id="sender"
+                    type="email"
+                    placeholder="sender@example.com"
+                >
+
+
+                <label>Subject</label>
+
+                <input
+                    id="subject"
+                    type="text"
+                    placeholder="Email subject"
+                >
+
+
+                <label>Email content</label>
+
+                <textarea
+                    id="body"
+                    placeholder="Paste the email content here..."
+                ></textarea>
+
+
+                <button
+                    class="analyze-btn"
+                    onclick="analyzeEmail()"
+                    id="analyzeButton"
+                >
+                    🤖 Analyze Email
+                </button>
+
+            </div>
+
+
+            <div class="results-panel">
+
+                <div class="section-title">
+
+                    <h2>AI Insights</h2>
+
+                    <span id="resultStatus">
+                        Waiting for email
+                    </span>
+
+                </div>
+
+
+                <div id="loading" class="loading hidden">
+                    <div class="spinner"></div>
+                    AI is analyzing your email...
+                </div>
+
+
+                <div id="results">
+
+                    <div class="empty-state">
+
+                        <div class="empty-icon">🤖</div>
+
+                        <h3>No email analyzed</h3>
+
+                        <p>
+                            Paste an email on the left and let AI
+                            identify summaries, priorities, tasks,
+                            deadlines and replies.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<script src="app.js"></script>
+
+</body>
+</html>

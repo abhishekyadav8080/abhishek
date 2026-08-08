@@ -1,0 +1,80 @@
+import os
+import json
+from openai import OpenAI
+
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
+
+SYSTEM_PROMPT = """
+You are an AI Email Assistant for professionals and students.
+
+Analyze an incoming email and return ONLY valid JSON.
+
+Your job is to:
+
+1. Summarize the email.
+2. Detect priority: Low, Medium, or High.
+3. Categorize the email.
+4. Extract tasks.
+5. Extract deadlines.
+6. Detect spam/phishing risk.
+7. Generate a context-aware reply.
+8. Explain why the email has its priority.
+
+Never invent information.
+If a deadline is not present, return null.
+If there are no tasks, return an empty array.
+
+Use this JSON structure:
+
+{
+  "summary": "short summary",
+  "priority": "Low | Medium | High",
+  "category": "Work | Academic | Personal | Finance | Meeting | Marketing | Notification | Other",
+  "tasks": [
+    {
+      "task": "task description",
+      "deadline": "deadline or null"
+    }
+  ],
+  "deadlines": [],
+  "spam_phishing": {
+    "is_suspicious": false,
+    "risk_level": "Low | Medium | High",
+    "reason": "explanation"
+  },
+  "sentiment": "Positive | Neutral | Negative | Urgent",
+  "priority_reason": "why this priority was selected",
+  "suggested_reply": "professional reply suggestion"
+}
+"""
+
+
+def analyze_email(sender, subject, body):
+
+    email_text = f"""
+Sender: {sender}
+
+Subject: {subject}
+
+Email:
+{body}
+"""
+
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",
+        temperature=0.2,
+        response_format={"type": "json_object"},
+        messages=[
+            {
+                "role": "system",
+                "content": SYSTEM_PROMPT
+            },
+            {
+                "role": "user",
+                "content": email_text
+            }
+        ]
+    )
+
+    return json.loads(response.choices[0].message.content)
